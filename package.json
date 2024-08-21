@@ -1,10 +1,13 @@
 {
   "name": "bizawaytechchallenge",
+  "type": "module",
   "version": "1.0.0",
   "description": "BizAway tech challenge completed by Francisco Bravo Bravo",
   "main": "./dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "eslint src/**/*.ts --fix",
+    "start": "node dist/index.js",
+    "build": "npx rimraf ./dist && tsc"
   },
   "repository": {
     "type": "git",
@@ -20,8 +23,18 @@
     "url": "https://github.com/fBravoBravo/BizAwayTechChallenge/issues"
   },
   "homepage": "https://github.com/fBravoBravo/BizAwayTechChallenge#readme",
+  "engines": {
+    "node": ">=20.0.0"
+  },
   "devDependencies": {
     "@types/node": "^22.4.2",
+    "@typescript-eslint/eslint-plugin": "^8.2.0",
+    "@typescript-eslint/parser": "^8.2.0",
+    "eslint": "^9.9.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "prettier": "^3.3.3",
+    "rimraf": "^6.0.1",
     "typescript": "^5.5.4"
   }
 }
