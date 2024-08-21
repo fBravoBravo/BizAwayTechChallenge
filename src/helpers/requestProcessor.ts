@@ -6,7 +6,8 @@ export async function processRequest (origin: string, destination: string, sort_
     let tripData;
     const returnObject: {
         error: boolean,
-        tripData?: Trip[] | string;
+        tripData?: Trip[];
+        numberOfResults?: number;
     } = {
         error: false
     }
@@ -19,10 +20,6 @@ export async function processRequest (origin: string, destination: string, sort_
         return returnObject;
     }
 
-    if (tripData.length === 0) {
-        returnObject.tripData = "No trips found for the given origin and destination.";
-    }
-
     if (sort_by === "fastest") {
       tripData.sort((a, b) => a.duration - b.duration);
     }
@@ -32,5 +29,7 @@ export async function processRequest (origin: string, destination: string, sort_
     }
 
     returnObject.tripData = tripData;
+    returnObject.numberOfResults = tripData.length;
+    
     return returnObject;
 }

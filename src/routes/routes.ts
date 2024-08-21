@@ -37,8 +37,8 @@ export async function routes (fastify: fastify.FastifyInstance, options: fastify
       });
     }
     
-    const tripOptions = await (processRequest(origin, destination, sort_by));  
-      if (tripOptions.error) {
+    const trips = await (processRequest(origin, destination, sort_by));  
+      if (trips.error) {
           reply.code(500).send({
             error: "Internal error while processing the data. Try again in a few minutes."
           });
@@ -50,9 +50,10 @@ export async function routes (fastify: fastify.FastifyInstance, options: fastify
 
     const jsonResponse = {
       elapsedTime: timeEnd - timeStart,
+      numberOfResults: trips.numberOfResults,
       tripData: {
         sort_by,
-        tripOptions: tripOptions
+        trips: trips
       }
     }
 
