@@ -15,9 +15,8 @@ export async function routes (fastify: fastify.FastifyInstance, options: fastify
     const jsonResponse = {
       elapsedTime: timeEnd - timeStart,
       tripData: {
-        origin,
-        destination,
-        sort_by
+        sort_by,
+        tripOptions: response
       }
     }
 
