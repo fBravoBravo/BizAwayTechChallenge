@@ -33,28 +33,22 @@ export async function routes (fastify: fastify.FastifyInstance, options: fastify
     if (!allowedIATAcodes.includes(origin) || !allowedIATAcodes.includes(destination)) {
       //TODO expand this with further information about the errors in the IATA codes.
       reply.code(400).send({
-        error: "Please provide valid IAT codes for origin and destination."
+        error: "Please provide valid IATA codes for origin and destination."
       });
     }
-
-
-    let tripOptions, jsonResponse; 
     
-    try {
-      tripOptions = await (processRequest(origin, destination, sort_by));  
+    const tripOptions = await (processRequest(origin, destination, sort_by));  
       if (tripOptions.error) {
-        jsonResponse = {
-          error: tripOptions
-        }
-        
+          reply.code(500).send({
+            error: "Internal error while processing the data. Try again in a few minutes."
+          });
       }
-    } catch (error) {
-    }
+
     
   
     const timeEnd = performance.now();
 
-    jsonResponse = {
+    const jsonResponse = {
       elapsedTime: timeEnd - timeStart,
       tripData: {
         sort_by,
