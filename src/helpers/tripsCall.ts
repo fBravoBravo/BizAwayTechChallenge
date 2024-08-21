@@ -1,6 +1,6 @@
 import { Trip } from "../types";
 
-export async function fetchTrip (origin: string, destination: string): Promise<Trip> {
+export async function fetchTrip (origin: string, destination: string): Promise<Trip[]> {
  const options = {
     method: 'GET',
     headers: {
@@ -9,6 +9,6 @@ export async function fetchTrip (origin: string, destination: string): Promise<T
     },
     }
   const response = await fetch(`https://z0qw1e7jpd.execute-api.eu-west-1.amazonaws.com/default/trips?origin=${origin}&destination=${destination}`, options);
-  const trip = await response.json();
+  const trip = await response.json() as Trip[];
   return trip;
 }
