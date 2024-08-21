@@ -1,0 +1,27 @@
+{
+  "name": "bizawaytechchallenge",
+  "version": "1.0.0",
+  "description": "BizAway tech challenge completed by Francisco Bravo Bravo",
+  "main": "./dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fBravoBravo/BizAwayTechChallenge.git"
+  },
+  "keywords": [
+    "BizAway",
+    "TechChallenge"
+  ],
+  "author": "Francisco Bravo Bravo (fBravoBravo)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/fBravoBravo/BizAwayTechChallenge/issues"
+  },
+  "homepage": "https://github.com/fBravoBravo/BizAwayTechChallenge#readme",
+  "devDependencies": {
+    "@types/node": "^22.4.2",
+    "typescript": "^5.5.4"
+  }
+}
