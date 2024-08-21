@@ -5,18 +5,16 @@ export async function processRequest (origin: string, destination: string, sort_
     // Call API for data about the trip.
     let tripData;
     const returnObject: {
-        success: boolean,
-        error?: "API" | "internal",
+        error: boolean,
         tripData?: Trip[];
     } = {
-        success: false,
-        error: "internal"
+        error: false
     }
 
     try {
         tripData = await fetchTrip(origin, destination);
     } catch (error) {
-        returnObject.error = "API";
+        returnObject.error = true;
         return returnObject;
     }
 
@@ -28,7 +26,6 @@ export async function processRequest (origin: string, destination: string, sort_
       tripData.sort((a, b) => a.cost - b.cost);
     }
 
-    returnObject.success = true;
     returnObject.tripData = tripData;
     return returnObject;
 }
