@@ -16,13 +16,14 @@ export async function routes (fastify: fastify.FastifyInstance, options: fastify
     const timeStart = performance.now();
 
     //TODO guard to check if the params are present.
-    const {origin, destination, sort_by} = request.params as { origin: string, destination: string, sort_by: "fastest" | "cheapest" };
+    const {origin, destination, sort_by} = request.query as { origin: string, destination: string, sort_by: "fastest" | "cheapest" };
+
+    console.log(origin, destination, sort_by);
 
     if (!origin || !destination || !sort_by) {
       reply.code(400).send({
         error: "Please provide all the required parameters."
       });
-      return reply;
     }
 
     if (sort_by !== "fastest" && sort_by !== "cheapest") {
@@ -59,7 +60,6 @@ export async function routes (fastify: fastify.FastifyInstance, options: fastify
     }
 
     reply.code(200).send(jsonResponse);
-    
   })
 }
 
