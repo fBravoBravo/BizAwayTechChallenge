@@ -1,6 +1,4 @@
 import * as fastify from 'fastify';
-import { fetchTrip } from '../helpers/tripsCall.js';
-import { Trip } from '../types.js';
 import { processRequest } from '../helpers/requestProcessor.js';
 
 
