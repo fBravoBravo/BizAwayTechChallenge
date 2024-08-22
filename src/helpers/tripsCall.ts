@@ -1,4 +1,4 @@
-import { Trip } from "../types";
+import { Trip } from "../types.js";
 
 export async function fetchTrip (origin: string, destination: string): Promise<Trip[]> {
  const options = {

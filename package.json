@@ -6,7 +6,7 @@
   "main": "./dist/index.js",
   "scripts": {
     "lint": "npx eslint ./src --fix",
-    "start": "npm run lint && npm run build && node dist/index.js",
+    "start": "npm run build && node dist/index.js",
     "build": "npx rimraf ./dist && tsc",
     "test": ""
   },

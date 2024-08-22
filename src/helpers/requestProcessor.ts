@@ -1,5 +1,5 @@
-import { Trip } from "../types";
-import { fetchTrip } from "./tripsCall";
+import { Trip } from "../types.js";
+import { fetchTrip } from "./tripsCall.js";
 
 export async function processRequest (origin: string, destination: string, sort_by: "fastest" | "cheapest") {
     // Call API for data about the trip.
