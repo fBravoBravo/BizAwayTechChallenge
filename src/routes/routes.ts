@@ -10,7 +10,7 @@ const allowedIATAcodes  = [
     "DEL", "ZRH", "SVO", "DME", "JNB", "ARN", "OSL", "CPH", "HEL", "VIE"
 ];
 
-export async function routes (fastify: fastify.FastifyInstance, options: fastify.FastifyPluginOptions) {
+export async function routes (fastify: fastify.FastifyInstance) {
   fastify.get('/exploreDestination', async (request: fastify.FastifyRequest, reply: fastify.FastifyReply) => {
     const timeStart = performance.now();
 
