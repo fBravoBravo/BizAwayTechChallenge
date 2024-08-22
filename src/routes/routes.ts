@@ -51,8 +51,8 @@ export async function routes (fastify: fastify.FastifyInstance, options: fastify
     const timeEnd = performance.now();
 
     const jsonResponse = {
-      elapsedTime: timeEnd - timeStart,
-      numberOfResults: trips.numberOfResults,
+      elapsedTime: Math.round(timeEnd - timeStart),
+      numberOfResults: trips.tripData? trips.tripData.length : 0,
       tripData: {
         sort_by,
         trips: trips

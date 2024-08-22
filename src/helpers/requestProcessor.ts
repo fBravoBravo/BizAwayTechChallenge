@@ -7,7 +7,6 @@ export async function processRequest (origin: string, destination: string, sort_
     const returnObject: {
         error: boolean,
         tripData?: Trip[];
-        numberOfResults?: number;
     } = {
         error: false
     }
@@ -29,7 +28,6 @@ export async function processRequest (origin: string, destination: string, sort_
     }
 
     returnObject.tripData = tripData;
-    returnObject.numberOfResults = tripData.length;
     
     return returnObject;
 }
