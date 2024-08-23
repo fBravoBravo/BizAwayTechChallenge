@@ -1,5 +1,6 @@
 import * as fastify from 'fastify';
 import { processRequest } from '../helpers/requestProcessor.js';
+import { initializeDbConnection } from '../database/datbaseConnector.js';
 
 
 const allowedIATAcodes  = [
@@ -60,6 +61,78 @@ export async function routes (fastify: fastify.FastifyInstance) {
 
     reply.code(200).send(jsonResponse);
   })
+
+
+   //list all trips
+  fastify.get('/trips/listTrips', async (_, reply: fastify.FastifyReply) => {
+    // TODO list all trips
+    const db = initializeDbConnection();
+    const rows = await new Promise((resolve, reject) => {
+      db.all('SELECT * FROM trip', [], (err, rows) => {
+      if (err) {
+        reject(err);
+      }
+      console.log(`Rows: ${rows.length}`);
+      resolve(rows);
+    });
+    });
+
+    db.close();
+    reply.code(200).send(rows);
+  });
+  // delete a trip
+  fastify.delete('/trips/:tripId', async (request: fastify.FastifyRequest, reply: fastify.FastifyReply) => {
+    const { tripId } = request.params as { tripId: string };
+
+    if (!tripId) {
+      reply.code(400).send({
+        error: "Please provide a valid tripId."
+      });
+    }
+
+    const db = initializeDbConnection();
+
+    await new Promise((_, reject) => {
+      db.run('DELETE FROM trip WHERE id = ?', [tripId], (err) => {
+        if (err) {
+          reject(err);
+        }
+      });
+    });
+
+    db.close();
+
+    reply.code(200).send({
+      message: `Trip with id ${tripId} has been deleted.`
+    });
+  });
+  // create a trip
+  fastify.post('/trips/create', async (request: fastify.FastifyRequest, reply: fastify.FastifyReply) => {
+    const { origin, destination, departureDate, returnDate, price } = request.body as { origin: string, destination: string, departureDate: string, returnDate: string, price: number };
+
+    if (!origin || !destination || !departureDate || !returnDate || !price) {
+      reply.code(400).send({
+        error: "Please provide all the required parameters."
+      });
+    }
+
+    const db = initializeDbConnection();
+
+    await new Promise((_, reject) => {
+      db.run('INSERT INTO trip (origin, destination, departureDate, returnDate, price) VALUES (?, ?, ?, ?, ?)', [origin, destination, departureDate, returnDate, price], (err) => {
+        if (err) {
+          reject(err);
+        }
+      });
+    });
+
+    db.close();
+
+    reply.code(201).send({
+      message: "Trip has been created."
+    });
+  });
 }
+
 
 
