@@ -5,7 +5,7 @@ const server = Fastify({
   logger: true
 })
 
-server.register(routes);
+server.register(routes, { prefix: '/api' });
 
 server.listen({ port: 3000 }, function (err) {
   if (err) {

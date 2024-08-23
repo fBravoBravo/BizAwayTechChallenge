@@ -3,7 +3,7 @@ import { initializeDbConnection } from "../database/datbaseConnector.js";
 import { Trip } from "../types.js";
 
 export  async function listTripsHandler(request: fastify.FastifyRequest, reply: fastify.FastifyReply)  {
-  //TODO Error handling for this endpoint.
+  try{
     const timeStart = performance.now();
     const db = initializeDbConnection();
     const { tripIds } = request.query as { tripIds: string[] };
@@ -45,4 +45,10 @@ export  async function listTripsHandler(request: fastify.FastifyRequest, reply: 
 
     db.close();
     reply.code(200).send(jsonResponse);
+  }catch(err){
+    console.error(err);
+    reply.code(500).send({
+      error: "Internal error while processing the data. Try again in a few minutes."
+    });
   }
+}
