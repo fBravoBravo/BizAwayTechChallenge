@@ -2,6 +2,7 @@ import fastify from "fastify";
 import { initializeDbConnection } from "../database/datbaseConnector.js";
 
 export async function deleteTripHandler (request: fastify.FastifyRequest, reply: fastify.FastifyReply) {
+  try{
     const { tripId } = request.params as { tripId: string };
 
     if (!tripId) {
@@ -25,4 +26,10 @@ export async function deleteTripHandler (request: fastify.FastifyRequest, reply:
     reply.code(200).send({
       message: `Trip with id ${tripId} has been deleted.`
     });
+  }catch(err){
+    console.error(err);
+    reply.code(500).send({
+      error: "Internal error while processing the data. Try again in a few minutes."
+    });
   }
+}

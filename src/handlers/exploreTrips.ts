@@ -1,13 +1,8 @@
 import fastify from "fastify";
 import { processRequest } from "../helpers/requestProcessor.js";
+import { allowedIATAcodes } from "../constants.js";
 
-const allowedIATAcodes  = [
-    "ATL", "PEK", "LAX", "DXB", "HND", "ORD", "LHR", "PVG", "CDG", "DFW",
-    "AMS", "FRA", "IST", "CAN", "JFK", "SIN", "DEN", "ICN", "BKK", "SFO",
-    "LAS", "CLT", "MIA", "KUL", "SEA", "MUC", "EWR", "MAD", "HKG", "MCO",
-    "PHX", "IAH", "SYD", "MEL", "GRU", "YYZ", "LGW", "BCN", "MAN", "BOM",
-    "DEL", "ZRH", "SVO", "DME", "JNB", "ARN", "OSL", "CPH", "HEL", "VIE"
-];
+
 
 export async function exploreTripsHandler(request: fastify.FastifyRequest, reply: fastify.FastifyReply) {
     const timeStart = performance.now();
