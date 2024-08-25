@@ -25,7 +25,7 @@ export async function createTripHandler (request: fastify.FastifyRequest, reply:
           reject(err);
         }
 
-        if (row.length === 0) {
+        if (!row) {
           resolve(false);
         }
 

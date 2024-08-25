@@ -20,6 +20,9 @@ export  async function listTripsHandler(request: fastify.FastifyRequest, reply: 
           resolve(rows);
         });
       });
+
+      //TODO handle not found ids in trips.
+      
       db.close();
       reply.code(200).send(rows);
       return;
