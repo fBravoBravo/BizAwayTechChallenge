@@ -19,6 +19,7 @@ export async function createTripHandler (request: fastify.FastifyRequest, reply:
     
 
     // check if already exits in database
+    console.log(`before the existing check`);
     const tripExists = await new Promise((resolve, reject) => {
       db.get('SELECT * FROM trip WHERE origin = ? AND destination = ? AND cost = ? AND duration = ? AND type = ? AND display_name = ?', [origin, destination, cost, duration, type, display_name], (err, row: string[]) => {
         if (err) {
@@ -33,20 +34,26 @@ export async function createTripHandler (request: fastify.FastifyRequest, reply:
       });
     }) as boolean;
 
+    console.log(`after the existing check`);
+
 
     // Guard to check if the trip already exists.
     if (tripExists) {
+      console.log(`Trip already exits`);
       db.close();
       const timeEnd = performance.now();
       const jsonResponse = {
       elapsedTime: `${Math.round(timeEnd - timeStart)} ms`,
       message: "Trip already exits."
-    }
+      }
 
     reply.code(204).send(jsonResponse);
+    return;
     }
 
     const uuid = randomUUID();
+
+    console.log(`before the insert`);
 
     await new Promise((_, reject) => {
       db.run('INSERT INTO trip (ID, origin, destination, cost, duration, type, display_name) VALUES (?, ?, ?, ?, ?, ?, ?)', [uuid, origin, destination, cost, duration, type, display_name], (err) => {
@@ -58,6 +65,8 @@ export async function createTripHandler (request: fastify.FastifyRequest, reply:
 
     db.close();
 
+    console.log(`after the insert`);
+
     const timeEnd = performance.now();
 
     const jsonResponse = {
@@ -66,6 +75,8 @@ export async function createTripHandler (request: fastify.FastifyRequest, reply:
     }
 
     reply.code(201).send(jsonResponse);
+
+    console.log(`after the response`);
     } catch (error) {
       console.error(error);
       reply.code(500).send({
