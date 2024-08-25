@@ -11,13 +11,16 @@ export async function deleteTripHandler (request: fastify.FastifyRequest, reply:
       });
     }
 
+    //TODO handle not found ids in trips.
+
     const db = initializeDbConnection();
 
-    await new Promise((_, reject) => {
+    await new Promise((resolve, reject) => {
       db.run('DELETE FROM trip WHERE id = ?', [tripId], (err) => {
         if (err) {
           reject(err);
         }
+        resolve(true);
       });
     });
 
