@@ -1,4 +1,4 @@
-import { describe } from 'node:test';
+import { describe } from 'vitest';
 import { test, expect } from 'vitest';
 import { exploreTripsAPICall } from './utils/APIcalls.js';
 

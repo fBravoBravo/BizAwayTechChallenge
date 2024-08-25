@@ -8,7 +8,7 @@
     "lint": "npx eslint ./src --fix",
     "start": "npm run build && node dist/index.js",
     "build": "npx rimraf ./dist && tsc",
-    "test": ""
+    "test": "npx vitest run"
   },
   "repository": {
     "type": "git",
