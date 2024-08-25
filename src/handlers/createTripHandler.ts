@@ -1,7 +1,7 @@
 import fastify from "fastify";
 import { initializeDbConnection } from "../database/datbaseConnector.js";
 import { Trip } from "../types.js";
-import { Database } from "sqlite3";
+import { randomUUID } from "crypto";
 
 export async function createTripHandler (request: fastify.FastifyRequest, reply: fastify.FastifyReply)  {
   try {
@@ -46,9 +46,10 @@ export async function createTripHandler (request: fastify.FastifyRequest, reply:
     reply.code(204).send(jsonResponse);
     }
 
+    const uuid = randomUUID();
 
     await new Promise((_, reject) => {
-      db.run('INSERT INTO trip (origin, destination, cost, duration, type, display_name) VALUES (?, ?, ?, ?, ?, ?)', [origin, destination, cost, duration, type, display_name], (err) => {
+      db.run('INSERT INTO trip (ID, origin, destination, cost, duration, type, display_name) VALUES (?, ?, ?, ?, ?, ?, ?)', [uuid, origin, destination, cost, duration, type, display_name], (err) => {
         if (err) {
           reject(err);
         }
