@@ -1,6 +1,6 @@
 import fastify from "fastify";
-import { initializeDbConnection } from "../database/datbaseConnector.js";
-import { Trip } from "../types.js";
+import { initializeDbConnection } from "../../database/datbaseConnector.js";
+import { Trip } from "../../types.js";
 
 export  async function listTripsHandler(request: fastify.FastifyRequest, reply: fastify.FastifyReply)  {
   try{

@@ -1,6 +1,6 @@
 import fastify from "fastify";
-import { processRequest } from "../helpers/requestProcessor.js";
-import { allowedIATAcodes } from "../constants.js";
+import { processRequest } from "../../helpers/requestProcessor.js";
+import { allowedIATAcodes } from "../../constants.js";
 
 
 

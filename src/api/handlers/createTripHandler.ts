@@ -1,6 +1,6 @@
 import fastify from "fastify";
-import { initializeDbConnection } from "../database/datbaseConnector.js";
-import { Trip } from "../types.js";
+import { initializeDbConnection } from "../../database/datbaseConnector.js";
+import { Trip } from "../../types.js";
 import { randomUUID } from "crypto";
 
 export async function createTripHandler (request: fastify.FastifyRequest, reply: fastify.FastifyReply)  {

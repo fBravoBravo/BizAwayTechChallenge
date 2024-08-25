@@ -1,5 +1,5 @@
 import fastify from "fastify";
-import { initializeDbConnection } from "../database/datbaseConnector.js";
+import { initializeDbConnection } from "../../database/datbaseConnector.js";
 
 export async function deleteTripHandler (request: fastify.FastifyRequest, reply: fastify.FastifyReply) {
   try{
