@@ -56,12 +56,12 @@ export async function createTripHandler (request: fastify.FastifyRequest, reply:
 
     console.log(`before the insert`);
 
-    await new Promise((_, reject) => {
+    await new Promise((resolve, reject) => {
       db.run('INSERT INTO trip (ID, origin, destination, cost, duration, type, display_name) VALUES (?, ?, ?, ?, ?, ?, ?)', [uuid, origin, destination, cost, duration, type, display_name], (err) => {
         if (err) {
           reject(err);
         }
-        resolve();
+        resolve(true);
       });
     });
 
