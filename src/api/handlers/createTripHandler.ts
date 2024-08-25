@@ -2,6 +2,7 @@ import fastify from "fastify";
 import { initializeDbConnection } from "../../database/datbaseConnector.js";
 import { Trip } from "../../types.js";
 import { randomUUID } from "crypto";
+import { resolve } from "path";
 
 export async function createTripHandler (request: fastify.FastifyRequest, reply: fastify.FastifyReply)  {
   try {
@@ -60,6 +61,7 @@ export async function createTripHandler (request: fastify.FastifyRequest, reply:
         if (err) {
           reject(err);
         }
+        resolve();
       });
     });
 
