@@ -8,13 +8,13 @@ export async function exploreTripsAPICall (origin: string, destination: string, 
     return data;
 }
 
-export async function listTripsAPICall (iataCodes: string[]) {
+export async function listTripsAPICall (tripID?: string[]) {
     const options = {
       method: 'GET',
     }
 
-    if (iataCodes) {
-        const result = await fetch(`http://localhost:3000/api/trips/listTrips?tripIds=${JSON.stringify(iataCodes)}`, options);
+    if (tripID) {
+        const result = await fetch(`http://localhost:3000/api/trips/listTrips?tripIds=${JSON.stringify(tripID)}`, options);
         const data = await result.json();
         return data;
     }else{
