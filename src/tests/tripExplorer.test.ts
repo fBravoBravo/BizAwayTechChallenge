@@ -14,7 +14,7 @@ describe("exploreTrips end-point", () => {
       console.log(JSON.stringify(data));
       const { tripData } = data;
 
-      expect(tripData.trips[0].cost).toBeLessThan(tripData.trips[tripData.length - 1].cost);
+      expect(tripData.trips[0].cost).toBeLessThan(tripData.trips[tripData.trips.length - 1].cost);
     }); 
 
     test('Sort by fastest is ordered correctly', async () => {
@@ -22,7 +22,7 @@ describe("exploreTrips end-point", () => {
       console.log(JSON.stringify(data));
       const { tripData } = data;
 
-      expect(tripData.trips[0].duration).toBeLessThan(tripData.trips[tripData.length - 1].duration);
+      expect(tripData.trips[0].duration).toBeLessThan(tripData.trips[tripData.trips.length - 1].duration);
     });
     
     test('Error if query parameters are missing', async () => {
