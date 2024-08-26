@@ -6,13 +6,18 @@ export  async function listTripsHandler(request: fastify.FastifyRequest, reply: 
   try{
     const timeStart = performance.now();
     const db = initializeDbConnection();
-    const { tripIds } = request.query as { tripIds: string[] };
+    const { tripIds } = request.query as { tripIds: string };
+    const tripIdsArray = tripIds?.split(',');
 
+    console.log(`tripIds: ${tripIds}`);
 
     // If the query parameter tripIds is present, we will return only the trips with the ids provided.
     if (tripIds) {
+      const tripIdsQuery = tripIdsArray.map(id => `id = '${id}'`).join(' OR ');
+      console.log(`tripIdsQuery: ${tripIdsQuery}`);
       const rows = await new Promise((resolve, reject) => {
-        db.all('SELECT * FROM trip WHERE id IN (?)', [tripIds], (err, rows) => {
+
+        db.all(`SELECT * FROM trip WHERE ${tripIdsQuery}`, [], (err, rows) => {
           if (err) {
             reject(err);
           }
