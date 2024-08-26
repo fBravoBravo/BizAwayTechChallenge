@@ -9,19 +9,21 @@ describe("exploreTrips end-point", () => {
       expect(data).toHaveProperty(['tripData']);
     });
     
-    // test('Sort by cheapest is ordered correctly', async () => {
-    //   const data = await exploreTripsAPICall('MAD', 'JFK', 'cheapest');
-    //   const { tripData } = data;
+    test('Sort by cheapest is ordered correctly', async () => {
+      const data = await exploreTripsAPICall('MAD', 'JFK', 'cheapest');
+      console.log(JSON.stringify(data));
+      const { tripData } = data;
 
-    //   expect(tripData[0].cost).toBeLessThan(tripData[tripData.length - 1].cost);
-    // }); 
+      expect(tripData.trips[0].cost).toBeLessThan(tripData.trips[tripData.length - 1].cost);
+    }); 
 
-    // test('Sort by fastest is ordered correctly', async () => {
-    //   const data = await exploreTripsAPICall('MAD', 'JFK', 'fastest');
-    //   const { tripData } = data;
+    test('Sort by fastest is ordered correctly', async () => {
+      const data = await exploreTripsAPICall('MAD', 'JFK', 'fastest');
+      console.log(JSON.stringify(data));
+      const { tripData } = data;
 
-    //   expect(tripData[0].duration).toBeLessThan(tripData[tripData.length - 1].duration);
-    // });
+      expect(tripData.trips[0].duration).toBeLessThan(tripData.trips[tripData.length - 1].duration);
+    });
     
     test('Error if query parameters are missing', async () => {
         const options = {
