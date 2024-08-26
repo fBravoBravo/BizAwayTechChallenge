@@ -2,7 +2,7 @@ export async function exploreTripsAPICall (origin: string, destination: string, 
     const options = {
       method: 'GET',
     }
-    const result = await fetch(`http://localhost:3000/api/trips/tripExplorer?origin=${origin}&destination=${destination}&sort_by=${sort_by}`, options);
+    const result = await fetch(`http://localhost:3000/api/trips/exploreTrips?origin=${origin}&destination=${destination}&sort_by=${sort_by}`, options);
     const data = await result.json();
   
     return data;

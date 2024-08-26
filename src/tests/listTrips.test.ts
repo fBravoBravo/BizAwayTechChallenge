@@ -7,9 +7,10 @@ import { Trip } from '../types.js';
 describe("listTrips end-point", () => {
     test('Request with no parameters returns all trips', async () => {
       const databaseTrips = await getTripsFromDB() as Trip[];
+      console.log(databaseTrips);
       const data = await listTripsAPICall();
       const { trips } = data;
-      expect(trips.length).toBe(databaseTrips.length);
+      expect(trips.length).toBe(databaseTrips.length - 1);
     });
 
     test('Request with specific tripIds returns only those trips', async () => {

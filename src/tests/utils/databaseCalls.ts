@@ -4,7 +4,7 @@ import { initializeDbConnection } from "../../database/datbaseConnector.js";
 export async function getTripsFromDB() {
     const db = initializeDbConnection();
     const trips = await new Promise((resolve, reject) => {
-        db.get('SELECT * FROM trip', (err, rows) => {
+        db.all('SELECT * FROM trip', (err, rows) => {
             if (err) {
                 reject(err);
             }
