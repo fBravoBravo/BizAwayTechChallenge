@@ -2,13 +2,14 @@ import fastify from "fastify";
 import { initializeDbConnection } from "../../database/datbaseConnector.js";
 import { Trip } from "../../types.js";
 import { randomUUID } from "crypto";
-import { resolve } from "path";
 
 export async function createTripHandler (request: fastify.FastifyRequest, reply: fastify.FastifyReply)  {
   try {
     const { origin, destination, cost, duration, type, display_name } = request.body as Trip;
 
     const timeStart = performance.now();
+
+    console.log(JSON.stringify(request.body));
 
     if (!origin || !destination || !cost || !duration || !type || !display_name) {
       reply.code(400).send({
@@ -17,40 +18,6 @@ export async function createTripHandler (request: fastify.FastifyRequest, reply:
     }
 
     const db = initializeDbConnection();
-    
-
-    // check if already exits in database
-    console.log(`before the existing check`);
-    const tripExists = await new Promise((resolve, reject) => {
-      db.get('SELECT * FROM trip WHERE origin = ? AND destination = ? AND cost = ? AND duration = ? AND type = ? AND display_name = ?', [origin, destination, cost, duration, type, display_name], (err, row: string[]) => {
-        if (err) {
-          reject(err);
-        }
-
-        if (!row) {
-          resolve(false);
-        }
-
-        resolve(true);
-      });
-    }) as boolean;
-
-    console.log(`after the existing check`);
-
-
-    // Guard to check if the trip already exists.
-    if (tripExists) {
-      console.log(`Trip already exits`);
-      db.close();
-      const timeEnd = performance.now();
-      const jsonResponse = {
-      elapsedTime: `${Math.round(timeEnd - timeStart)} ms`,
-      message: "Trip already exits."
-      }
-
-    reply.code(204).send(jsonResponse);
-    return;
-    }
 
     const uuid = randomUUID();
 
@@ -77,8 +44,6 @@ export async function createTripHandler (request: fastify.FastifyRequest, reply:
     }
 
     reply.code(201).send(jsonResponse);
-
-    console.log(`after the response`);
     } catch (error) {
       console.error(error);
       reply.code(500).send({

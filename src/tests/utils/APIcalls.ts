@@ -23,3 +23,33 @@ export async function listTripsAPICall (tripID?: string[]) {
         return data;
     }
 }
+
+
+export async function createTripsAPICall (origin?: string, destination?: string, cost?: number, duration?: number, type?: string, display_name?: string) {
+  
+  const body = {origin, destination, cost, duration, type, display_name};
+  
+  const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(body)
+    }
+    
+    const result = await fetch(`http://localhost:3000/api/trips/create`, options);
+    const data = await result.json();
+    return data;
+    
+}
+
+
+export async function deleteTripsAPICall (tripID?: string) {
+    const options = {
+      method: 'DELETE',
+    }
+
+    const result = await fetch(`http://localhost:3000/api/trips/${tripID}`, options);
+    const data = await result.json();
+    return data;
+}
