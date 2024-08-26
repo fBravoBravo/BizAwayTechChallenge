@@ -16,10 +16,14 @@ describe("listTrips end-point", () => {
     test('Request with specific tripIds returns only those trips', async () => {
       const firstTripid = await insertTestTripInDB();
       const secondTripid = await insertTestTripInDB();
+      console.log(`firstTripid: ${firstTripid}`);
+      console.log(`secondTripid: ${secondTripid}`);
       const data = await listTripsAPICall([firstTripid, secondTripid]);
 
+      console.log(JSON.stringify(data));
       const { trips } = data;
 
+      console.log(`Trips: ${trips}`);
       expect(trips[0].id).toBe(firstTripid);
       expect(trips[1].id).toBe(secondTripid);
 

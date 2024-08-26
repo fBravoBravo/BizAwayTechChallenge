@@ -15,7 +15,8 @@ export async function listTripsAPICall (tripID?: string[]) {
 
     if (tripID) {
         const idsString = tripID.join(',');
-        const result = await fetch(`http://localhost:3000/api/trips/listTrips?tripIds=${JSON.stringify(idsString)}`, options);
+        console.log(`idsString: ${idsString}`);
+        const result = await fetch(`http://localhost:3000/api/trips/listTrips?tripIds=${idsString}`, options);
         const data = await result.json();
         return data;
     }else{

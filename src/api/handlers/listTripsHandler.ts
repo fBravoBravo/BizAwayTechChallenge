@@ -22,14 +22,22 @@ export  async function listTripsHandler(request: fastify.FastifyRequest, reply: 
             reject(err);
           }
           console.log(`Rows: ${rows.length}`);
-          resolve(rows);
+          resolve(rows as Trip[]);
         });
-      });
+      }) as Trip[];
 
       //TODO handle not found ids in trips.
+
+      const timeEnd = performance.now();
+
+      const jsonResponse = {
+      elapsedTime: `${Math.round(timeEnd - timeStart)} ms`,
+      numberOfResults: rows.length,
+      trips: rows
+    }
       
       db.close();
-      reply.code(200).send(rows);
+      reply.code(200).send(jsonResponse);
       return;
     }
 
