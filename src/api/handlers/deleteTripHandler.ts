@@ -5,9 +5,7 @@ export async function deleteTripHandler (request: fastify.FastifyRequest, reply:
   try{
     const { tripId } = request.params as { tripId: string };
 
-    console.log(tripId);
-    //TODO validate somehow the trip id is a valid uuid.
-    if (!tripId || tripId.length < 10) {
+    if (!tripId) {
       reply.code(400).send({
         error: "Please provide a valid tripId."
       });
@@ -15,7 +13,17 @@ export async function deleteTripHandler (request: fastify.FastifyRequest, reply:
       return;
     }
 
-    console.log("outside the no tripid guard")
+    const uuidRegex = new RegExp(
+      '^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$'
+      );
+
+    if (!uuidRegex.test(tripId)) {
+      reply.code(400).send({
+        error: "Please provide a valid tripId."
+      });
+
+      return;
+    }
 
     //TODO handle not found ids in trips.
 

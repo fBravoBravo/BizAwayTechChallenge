@@ -26,8 +26,6 @@ export  async function listTripsHandler(request: fastify.FastifyRequest, reply: 
         });
       }) as Trip[];
 
-      //TODO handle not found ids in trips.
-
       const timeEnd = performance.now();
 
       const jsonResponse = {
