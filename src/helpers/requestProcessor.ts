@@ -21,11 +21,11 @@ export async function processRequest (origin: string, destination: string, sort_
     }
 
     if (sort_by === "fastest") {
-      tripData.sort((a, b) => a.duration - b.duration);
+      tripData.sort((a, b) => { return a.duration - b.duration });
     }
 
     if (sort_by === "cheapest") {
-      tripData.sort((a, b) => a.cost - b.cost);
+      tripData.sort((a, b) => {return a.cost - b.cost});
     }
 
     returnObject.tripData = tripData;
