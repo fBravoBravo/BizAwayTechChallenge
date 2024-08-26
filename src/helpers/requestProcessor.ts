@@ -13,7 +13,6 @@ export async function processRequest (origin: string, destination: string, sort_
 
     try {
         tripData = await fetchTrip(origin, destination);
-        //TODO be careful with empty list of trips in the sort.
     } catch (error) {
         console.error(error);
         returnObject.error = true;

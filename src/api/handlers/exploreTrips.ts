@@ -7,7 +7,6 @@ import { allowedIATAcodes } from "../../constants.js";
 export async function exploreTripsHandler(request: fastify.FastifyRequest, reply: fastify.FastifyReply) {
     const timeStart = performance.now();
 
-    //TODO guard to check if the params are present.
     const {origin, destination, sort_by} = request.query as { origin: string, destination: string, sort_by: "fastest" | "cheapest" };
 
     console.log(origin, destination, sort_by);
@@ -25,7 +24,7 @@ export async function exploreTripsHandler(request: fastify.FastifyRequest, reply
     }
 
     if (!allowedIATAcodes.includes(origin) || !allowedIATAcodes.includes(destination)) {
-      //TODO expand this with further information about the errors in the IATA codes.
+      //TODO add the IATA codes to the database
       reply.code(400).send({
         error: "Please provide valid IATA codes for origin and destination."
       });

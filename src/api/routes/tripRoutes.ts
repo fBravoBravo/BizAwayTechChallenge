@@ -14,7 +14,6 @@ export async function tripRoutes (fastify: fastify.FastifyInstance){
   fastify.get('/listTrips',listTripsHandler);
   // delete a trip
   fastify.delete('/:tripId', deleteTripHandler);
-  //TODO add an update trip endpoint
   // create a trip
   fastify.post('/create', createTripHandler);
 }
