@@ -14,5 +14,5 @@ export async function fetchIATAcodesFromDB () {
 
   db.close();
 
-  return rows;
+  return rows as string[];
 }
