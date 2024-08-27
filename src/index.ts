@@ -12,8 +12,7 @@ const swaggerOptions = {
     openapi: '3.0.0',
     info: {
       title: 'BizAway Tech challenge',
-      description: `This is a simple API for the BizAway Tech challenge.
-                     Author: Francisco Bravo Bravo`,
+      description: 'This is a simple API for the BizAway Tech challenge',
       version: '0.1.0'
     },
     servers: [

@@ -3,7 +3,6 @@ import { exploreTripsHandler } from '../handlers/exploreTrips.js';
 import { listTripsHandler } from '../handlers/listTripsHandler.js';
 import { deleteTripHandler } from '../handlers/deleteTripHandler.js';
 import { createTripHandler } from '../handlers/createTripHandler.js';
-import { error } from 'console';
 
 export async function tripRoutes(fastify: fastify.FastifyInstance) {
   fastify.get(
@@ -15,6 +14,7 @@ export async function tripRoutes(fastify: fastify.FastifyInstance) {
           properties: {
             origin: { type: 'string' },
             destiny: { type: 'string' },
+            sort_by: { type: 'string'},
           },
         },
         tags: ['Trips'],
@@ -116,9 +116,6 @@ export async function tripRoutes(fastify: fastify.FastifyInstance) {
     '/:tripId',
     {
       schema: {
-        querystring: {
-          tripId: { type: 'string' },
-        },
         tags: ['Trips'],
         description:
           'Given a trip id, it deletes the trip from the database',
@@ -152,5 +149,32 @@ export async function tripRoutes(fastify: fastify.FastifyInstance) {
     },
     deleteTripHandler,
   );
-  fastify.post('/create', createTripHandler);
+  fastify.post('/create', {
+      schema: {
+        tags: ['Trips'],
+        description:
+          'Creates a new trip entry in the database',
+        response: {
+          201: {
+            type: 'object',
+            properties: {
+              elapsedTime: { type: 'string', description: 'Time taken to create the trip' },
+              message: { type: 'string', description: "Trip has been created." },
+            },
+          },
+          400: {
+            type: 'object',
+            properties: {
+              error: { type: 'string', description: 'Please provide all the required parameters.' },
+            },
+          },
+          500: {
+            type: 'object',
+            properties: {
+              error: { type: 'string', description: 'Internal Server Error' },
+            },
+          },
+        },
+      },
+    },createTripHandler);
 }
