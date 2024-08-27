@@ -38,8 +38,6 @@ export async function exploreTripsHandler(request: fastify.FastifyRequest, reply
           });
       }
 
-    
-  
     const timeEnd = performance.now();
 
     const jsonResponse = {

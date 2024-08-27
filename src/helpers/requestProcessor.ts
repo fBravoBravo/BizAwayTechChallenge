@@ -10,7 +10,8 @@ export async function processRequest (origin: string, destination: string, sort_
     } = {
         error: false
     }
-
+    
+    //TODO add cache
     try {
         tripData = await fetchTrip(origin, destination);
     } catch (error) {

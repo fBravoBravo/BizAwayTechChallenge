@@ -27,7 +27,26 @@ export async function deleteTripHandler (request: fastify.FastifyRequest, reply:
 
     //TODO handle not found ids in trips.
 
+
     const db = initializeDbConnection();
+
+    const trip = await new Promise((resolve, reject) => {
+      db.get('SELECT * FROM trip WHERE id = ?', [tripId], (err, rows) => {
+        if (err) {
+          reject(err);
+        }
+        resolve(rows);
+      });
+    });
+
+    if (!trip) {
+      db.close();
+      reply.code(404).send({
+        error: `Trip with id ${tripId} not found.`
+      });
+
+      return;
+    }
 
     await new Promise((resolve, reject) => {
       db.run('DELETE FROM trip WHERE id = ?', [tripId], (err) => {
