@@ -1,4 +1,4 @@
-//TODO add swagger to the project.
+//TODO Write jsdocs for everything and make better swagger documentation.
 
 //TODO write a good readme.md
 

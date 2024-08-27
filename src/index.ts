@@ -10,8 +10,9 @@ const server = Fastify({
 const swaggerOptions = {
     swagger: {
         info: {
-            title: "My Title",
-            description: "My Description.",
+            title: "BizAway tech challenge API documentation",
+            description: `Author: Francisco Bravo Bravo
+                          Documentation for the API of the BizAway tech challenge.`,
             version: "1.0.0",
         },
         host: "localhost",
