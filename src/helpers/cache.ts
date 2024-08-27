@@ -1,3 +1,8 @@
+
+/**
+ * Create a cache object
+ * @returns {object} cache - cache object
+ */
 export function createCache() {
   const cache = {
     cache: new Map<string, unknown>(),

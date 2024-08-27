@@ -1,5 +1,9 @@
 import { initializeDbConnection } from '../database/datbaseConnector.js';
 
+/**
+ * Fetch IATA codes from the database
+ * @returns {Promise<string[]>} - List of IATA codes
+ */
 export async function fetchIATAcodesFromDB() {
   const db = initializeDbConnection();
 

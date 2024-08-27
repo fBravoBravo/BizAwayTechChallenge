@@ -1,6 +1,11 @@
 import fastify from "fastify";
 import { initializeDbConnection } from "../../database/datbaseConnector.js";
 
+/**
+ * Delete a trip
+ * @param {fastify.FastifyRequest} request - The request object
+ * @param {fastify.FastifyReply} reply - The reply object
+ */
 export async function deleteTripHandler (request: fastify.FastifyRequest, reply: fastify.FastifyReply) {
   try{
     const { tripId } = request.params as { tripId: string };

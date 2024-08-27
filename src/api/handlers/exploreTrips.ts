@@ -2,8 +2,11 @@ import fastify from "fastify";
 import { processRequest } from "../../helpers/requestProcessor.js";
 import { fetchIATAcodesFromDB } from "../../helpers/fetchIATAcodesFromDB.js";
 
-
-
+/**
+ * Explore trips
+ * @param {fastify.FastifyRequest} request - The request object
+ * @param {fastify.FastifyReply} reply - The reply object
+ */ 
 export async function exploreTripsHandler(request: fastify.FastifyRequest, reply: fastify.FastifyReply) {
     const timeStart = performance.now();
 

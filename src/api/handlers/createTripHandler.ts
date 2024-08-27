@@ -3,6 +3,11 @@ import { initializeDbConnection } from "../../database/datbaseConnector.js";
 import { Trip } from "../../types.js";
 import { randomUUID } from "crypto";
 
+/**
+ * Create a new trip
+ * @param {fastify.FastifyRequest} request - The request object
+ * @param {fastify.FastifyReply} reply - The reply object
+ */
 export async function createTripHandler (request: fastify.FastifyRequest, reply: fastify.FastifyReply)  {
   try {
     const { origin, destination, cost, duration, type, display_name } = request.body as Trip;

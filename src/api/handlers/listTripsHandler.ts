@@ -2,6 +2,12 @@ import fastify from "fastify";
 import { initializeDbConnection } from "../../database/datbaseConnector.js";
 import { Trip } from "../../types.js";
 
+
+/**
+ * List all trips
+ * @param {fastify.FastifyRequest} request - The request object
+ * @param {fastify.FastifyReply} reply - The reply object
+ */
 export  async function listTripsHandler(request: fastify.FastifyRequest, reply: fastify.FastifyReply)  {
   try{
     const timeStart = performance.now();

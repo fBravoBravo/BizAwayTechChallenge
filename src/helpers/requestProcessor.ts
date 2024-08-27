@@ -2,6 +2,13 @@ import { cache } from "../constants.js";
 import { Trip } from "../types.js";
 import { fetchTrip } from "./tripsCall.js";
 
+/**
+ * Process the request for the trip
+ * @param {string} origin - Origin of the trip
+ * @param {string} destination - Destination of the trip
+ * @param {string} sort_by - Sort the trip by fastest or cheapest
+ * @returns {Promise<{error: boolean, tripData?: Trip[]}>} - Returns an object with error status and trip data
+ */
 export async function processRequest (origin: string, destination: string, sort_by: "fastest" | "cheapest") {
     // Call API for data about the trip.
     let tripData;
