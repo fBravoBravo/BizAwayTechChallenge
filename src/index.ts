@@ -1,6 +1,6 @@
-import Fastify from 'fastify'
+import Fastify, { FastifyRegisterOptions } from 'fastify'
 import { routes } from './api/routes/routes.js';
-import fastifySwagger from "@fastify/swagger";
+import fastifySwagger, { SwaggerOptions } from "@fastify/swagger";
 import fastifySwaggerUi from "@fastify/swagger-ui";
 
 const server = Fastify({
@@ -8,20 +8,29 @@ const server = Fastify({
 })
 
 const swaggerOptions = {
-    swagger: {
-        info: {
-            title: "BizAway tech challenge API documentation",
-            description: `Author: Francisco Bravo Bravo
-                          Documentation for the API of the BizAway tech challenge.`,
-            version: "1.0.0",
-        },
-        host: "localhost",
-        schemes: ["http", "https"],
-        consumes: ["application/json"],
-        produces: ["application/json"],
-        tags: [{ name: "Default", description: "Default" }],
+  openapi: {
+    openapi: '3.0.0',
+    info: {
+      title: 'BizAway Tech challenge',
+      description: `This is a simple API for the BizAway Tech challenge.
+                     Author: Francisco Bravo Bravo`,
+      version: '0.1.0'
     },
-};
+    servers: [
+      {
+        url: 'http://localhost:3000',
+        description: 'Development server'
+      }
+    ],
+    tags: [
+      { name: 'Trips', description: 'Trip related end-points' },
+    ],
+    externalDocs: {
+      url: 'https://swagger.io',
+      description: 'Find more info here'
+    }
+  }
+} as FastifyRegisterOptions<SwaggerOptions>;
 
 const swaggerUiOptions = {
     routePrefix: "/docs",
@@ -31,7 +40,7 @@ const swaggerUiOptions = {
 server.register(fastifySwagger, swaggerOptions);
 server.register(fastifySwaggerUi, swaggerUiOptions);
 
-server.register(routes, { prefix: '/api' });
+server.register(routes, { prefix: '/api', });
 
 server.listen({ port: 3000 }, function (err) {
   if (err) {
