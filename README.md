@@ -8,19 +8,24 @@ BizAway interview tech challenge solution proposal.
 - Github: github.com/fBravoBravo
 - Linkedin: linkedin.com/in/fbravobravo
 
-# How to run
+# Running the project
+
+## Spinning up the server
 
 - Make sure to be using the specified node version (19.0.0 LTS).
+- Add the API key (BizAway's endpoint API key) to the env file as specified in `.example.env`.
 - clone the project.
 - Run npm install in the root of the project.
 - Run `sudo npm run start`
 
 This steps will spin up the server and it will be ready to start recieving requests.
 
-# How to run the tests
+## Running the tests
 
 - Spin up the server using the steps describe above.
 - Run `npm run test`
+
+## Making calls to the API
 
 # Documentation
 
