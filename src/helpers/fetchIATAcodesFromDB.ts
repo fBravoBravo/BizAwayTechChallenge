@@ -1,6 +1,6 @@
-import { initializeDbConnection } from "../database/datbaseConnector.js";
+import { initializeDbConnection } from '../database/datbaseConnector.js';
 
-export async function fetchIATAcodesFromDB () {
+export async function fetchIATAcodesFromDB() {
   const db = initializeDbConnection();
 
   const rows = await new Promise((resolve, reject) => {

@@ -1,11 +1,10 @@
-import fastify from "fastify";
-import { exploreTripsHandler } from "../handlers/exploreTrips.js";
-import { listTripsHandler } from "../handlers/listTripsHandler.js";
-import { deleteTripHandler } from "../handlers/deleteTripHandler.js";
-import { createTripHandler } from "../handlers/createTripHandler.js";
+import fastify from 'fastify';
+import { exploreTripsHandler } from '../handlers/exploreTrips.js';
+import { listTripsHandler } from '../handlers/listTripsHandler.js';
+import { deleteTripHandler } from '../handlers/deleteTripHandler.js';
+import { createTripHandler } from '../handlers/createTripHandler.js';
 
-
-export async function tripRoutes (fastify: fastify.FastifyInstance){
+export async function tripRoutes(fastify: fastify.FastifyInstance) {
   //write swagger js docs for the route below
   /**
    * @swagger
@@ -17,7 +16,7 @@ export async function tripRoutes (fastify: fastify.FastifyInstance){
    *         description: Success
    */
   fastify.get('/exploreTrips', exploreTripsHandler);
-   /**
+  /**
    * @swagger
    * /exploreTrips:
    *   get:
@@ -27,7 +26,7 @@ export async function tripRoutes (fastify: fastify.FastifyInstance){
    *         description: Success
    */
 
-  fastify.get('/listTrips',listTripsHandler);
+  fastify.get('/listTrips', listTripsHandler);
   /**
    * @swagger
    * /exploreTrips:
