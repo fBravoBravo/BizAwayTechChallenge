@@ -1,3 +1,4 @@
+import { cache } from "../constants.js";
 import { Trip } from "../types.js";
 import { fetchTrip } from "./tripsCall.js";
 
@@ -12,12 +13,19 @@ export async function processRequest (origin: string, destination: string, sort_
     }
     
     //TODO add cache
-    try {
+    const cacheKey = `${origin}-${destination}-${sort_by}`;
+    const cachedData = cache.cache.get(cacheKey);
+
+    if (cachedData) {
+        tripData = cachedData as Trip[];
+    }else{
+        try {
         tripData = await fetchTrip(origin, destination);
-    } catch (error) {
-        console.error(error);
-        returnObject.error = true;
-        return returnObject;
+        } catch (error) {
+            console.error(error);
+            returnObject.error = true;
+            return returnObject;
+        }
     }
 
     if (sort_by === "fastest") {

@@ -1,6 +1,6 @@
 import { createCache } from "./helpers/cache.js";
 
-export const CACHE = createCache();
+export const cache = createCache();
 
 // export const allowedIATAcodes  = [
 //     "ATL", "PEK", "LAX", "DXB", "HND", "ORD", "LHR", "PVG", "CDG", "DFW",
