@@ -11,8 +11,6 @@ export async function processRequest (origin: string, destination: string, sort_
     } = {
         error: false
     }
-    
-    //TODO add cache
     const cacheKey = `${origin}-${destination}-${sort_by}`;
     const cachedData = cache.cache.get(cacheKey);
 
@@ -21,6 +19,8 @@ export async function processRequest (origin: string, destination: string, sort_
     }else{
         try {
         tripData = await fetchTrip(origin, destination);
+        // If the data is not cached, cache it for 1 minute.
+        cache.set(cacheKey, tripData, 60000);
         } catch (error) {
             console.error(error);
             returnObject.error = true;
