@@ -10,10 +10,12 @@ export async function tripRoutes(fastify: fastify.FastifyInstance) {
     '/exploreTrips',
     {
       schema: {
-        querystring: {
-          origin: { type: 'string', required: true },
-          destination: { type: 'string',required: true },
-          sort_by: { type: 'string', required: true },
+        params: {
+          type: 'object',
+          properties: {
+            origin: { type: 'string' },
+            destiny: { type: 'string' },
+          },
         },
         tags: ['Trips'],
         description: 'Given an origin,destiny and how you want to sort the results, it returns all trips available for that itinerary',
@@ -67,8 +69,11 @@ export async function tripRoutes(fastify: fastify.FastifyInstance) {
     '/listTrips',
     {
       schema: {
-        querystring: {
-          tripIds: { type: 'string', required: false },
+        params: {
+          type: 'object',
+          properties: {
+            tripIds: { type: 'string' },
+          },
         },
         tags: ['Trips'],
         description:
@@ -107,6 +112,45 @@ export async function tripRoutes(fastify: fastify.FastifyInstance) {
     },
     listTripsHandler,
   );
-  fastify.delete('/:tripId', deleteTripHandler);
+  fastify.delete(
+    '/:tripId',
+    {
+      schema: {
+        querystring: {
+          tripId: { type: 'string' },
+        },
+        tags: ['Trips'],
+        description:
+          'Given a trip id, it deletes the trip from the database',
+        response: {
+          200: {
+            type: 'object',
+            properties: {
+              message: { type: 'string', description: "Trip with id ${tripId} has been deleted." },
+            },
+          },
+          400: {
+            type: 'object',
+            properties: {
+              error: { type: 'string', description: 'Provide a valid trip id' },
+            },
+          },
+          404: {
+            type: 'object',
+            properties: {
+              error: { type: 'string', description: 'Trip id not found in database' },
+            },
+          },
+          500: {
+            type: 'object',
+            properties: {
+              error: { type: 'string', description: 'Internal Server Error' },
+            },
+          },
+        },
+      },
+    },
+    deleteTripHandler,
+  );
   fastify.post('/create', createTripHandler);
 }
