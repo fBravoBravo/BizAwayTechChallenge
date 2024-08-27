@@ -11,7 +11,7 @@ export async function processRequest (origin: string, destination: string, sort_
     } = {
         error: false
     }
-    const cacheKey = `${origin}-${destination}-${sort_by}`;
+    const cacheKey = `${origin}-${destination}`;
     const cachedData = cache.cache.get(cacheKey);
 
     if (cachedData) {
