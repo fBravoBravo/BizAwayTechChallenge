@@ -25,9 +25,6 @@ export async function deleteTripHandler (request: fastify.FastifyRequest, reply:
       return;
     }
 
-    //TODO handle not found ids in trips.
-
-
     const db = initializeDbConnection();
 
     const trip = await new Promise((resolve, reject) => {
