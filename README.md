@@ -12,22 +12,22 @@ BizAway interview tech challenge solution proposal.
 
 ## Spinning up the server
 
-- Make sure to be using the specified node version (20.0.0 LTS).
+- Make sure to use the specified node version (20.0.0 LTS).
 - Add the API key (BizAway's endpoint API key) to the env file as specified in `.example.env`.
 - clone the project.
 - Run npm install in the root of the project.
 - Run `sudo npm run start`
 
-This steps will spin up the server and it will be ready to start recieving requests.
+These steps will spin up the server and it will be ready to start receiving requests.
 
 ## Running the tests
 
-- Spin up the server using the steps describe above.
+- Spin up the server using the steps described above.
 - Run `npm run test`
 
 ## Making calls to the API
 
-The is deployed in localhost using the port `3000`. To make calls to the api first add the `api` subdirectory to the query and then add the resoruce you want to access ( for this test there is only one resource `trips`).
+The is deployed in localhost using the port `3000`. To make calls to the api first add the `api` subdirectory to the query and then add the resource you want to access ( for this test there are only one resource `trips`).
 
 Examples:
 
@@ -53,17 +53,19 @@ Trip deletion:
 
 # Documentation
 
-Swagger is used in this project to create the documenation for the endpoints exposed. You can find it spinning up the server and going to [localhost:3000/docs](localhost:3000/docs).
+Swagger is used in this project to create the documentation for the endpoints exposed. You can find it spinning up the server and going to [localhost:3000/docs](localhost:3000/docs).
 
 ==Find more documentation about the project below==
 
 # Description of the project
 
-## End points
+## Endpoints
 
 ### Main functionality of the challenge
 
-- **Explore Trips**: Main part of the technical challenge. This endpoint covers the part of the test for implementing an endpoint that takes an origin, a destination and a sort_by intruction and returns all the trips found for that itinerary sorted with whatever strategy comes in the sort_by parameter. A cache has been added to this endpoint as an extra to the challenge. Go to the Extra functionality section to know more.
+- **Explore Trips**: This endpoint covers the main part of the challenge and is designed to retrieve and sort travel itineraries based on specified criteria. Users can provide an origin, a destination, and a sorting method. The endpoint will then return all matching trips, sorted according to the chosen sorting strategy.
+
+For enhanced performance, we've implemented a caching mechanism. This cache stores recent search results, allowing for faster response times for repeated queries with the same parameters. Please refer to the 'Extra functionality' section for more details on the caching implementation.
 
 ### Bonus
 
@@ -77,30 +79,32 @@ Swagger is used in this project to create the documenation for the endpoints exp
 
 ### Cache
 
-A small cache has been developed for the `explore trips` endpoint. It stores the results of previous queries using the origin and destination as keys. If a call is performed to the endpoint with the same origin and destination the app returns the match found in the database. A ttl of one minute is added to every entry so they get deleted after that time and they have to be refetched again in the next call for that combination of origin and destination.
+To optimize performance, we've implemented a small cache for the explore trips endpoint. This cache stores recent search results using the origin and destination as keys. When a user makes a request with the same origin and destination, the app quickly returns the cached results instead of performing a new search.
 
-You can realize the benefits of this implementation if you make to calls requesting the same information for example `http://localhost:3000/api/trips/exploreTrips?origin=MAD&destination=JFK&sort_by=cheapest`, the first time it takes almost 6 seconds to return. On the second call it does it in 500 miliseconds.
+To ensure data freshness, each cached entry has a time-to-live (TTL) of one minute. After this time, the entry is automatically removed, and subsequent requests for the same origin and destination will trigger a new search.
+
+The benefits of caching are evident in performance benchmarks. For instance, when making two consecutive calls to the endpoint with the same parameters (e.g., http://localhost:3000/api/trips/exploreTrips?origin=MAD&destination=JFK&sort_by=cheapest), the first call might take around 6 seconds. However, the second call will be significantly faster, typically completing in under 500 milliseconds.
 
 ## Tests cases coverage
 
 - explore trips:
 
-  - JSON response contains the correct properties if a correct call is make
+  - JSON response contains the correct properties if a correct call is made
   - Sort by cheapest orders the trips correctly
   - Sort by fastest orders the trips correctly
-  - If parameters are missing an error is return from the server
+  - If parameters are missing an error is returned from the server
   - Correct parameters are passed but they are not allowed (for example an IATA code that is not in the list specified in the Bizaway tech challenge readme)
 
 - Create trip:
 
   - If correct parameters are passed the trip is created correctly
-  - If some parameters are missing and error is return
+  - If some parameters are missing an error is returned
 
 - Delete trip:
 
-  - Trips is deleted correctly
+  - Trips are deleted correctly
   - If no trip id is introduced in the path it server returns an error.
 
 - List trips:
-  - If no tripIds are passsed in parameters it returns all trips found in the database
+  - If no tripIds are passed in parameters it returns all trips found in the database
   - If tripIds are passed it returns only those trips
