@@ -26,8 +26,6 @@ export async function createTripHandler (request: fastify.FastifyRequest, reply:
 
     const uuid = randomUUID();
 
-    console.log(`before the insert`);
-
     await new Promise((resolve, reject) => {
       db.run('INSERT INTO trip (ID, origin, destination, cost, duration, type, display_name) VALUES (?, ?, ?, ?, ?, ?, ?)', [uuid, origin, destination, cost, duration, type, display_name], (err) => {
         if (err) {
@@ -38,8 +36,6 @@ export async function createTripHandler (request: fastify.FastifyRequest, reply:
     });
 
     db.close();
-
-    console.log(`after the insert`);
 
     const timeEnd = performance.now();
 

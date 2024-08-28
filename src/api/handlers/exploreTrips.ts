@@ -1,6 +1,8 @@
 import fastify from "fastify";
-import { processRequest } from "../../helpers/requestProcessor.js";
 import { fetchIATAcodesFromDB } from "../../helpers/fetchIATAcodesFromDB.js";
+import { Trip } from "../../types.js";
+import { cache } from "../../constants.js";
+import { fetchTrip } from "../../helpers/tripsCall.js";
 
 /**
  * Explore trips
@@ -37,7 +39,7 @@ export async function exploreTripsHandler(request: fastify.FastifyRequest, reply
       });
     }
     
-    const trips = await (processRequest(origin, destination, sort_by));  
+    const trips = await (exploreTripProcessor(origin, destination, sort_by));  
       if (trips.error) {
           reply.code(500).send({
             error: "Internal error while processing the data. Try again in a few minutes."
@@ -57,3 +59,53 @@ export async function exploreTripsHandler(request: fastify.FastifyRequest, reply
 
     reply.code(200).send(jsonResponse);
   }
+
+
+
+  /**
+ * Process the request for the trip
+ * @param {string} origin - Origin of the trip
+ * @param {string} destination - Destination of the trip
+ * @param {string} sort_by - Sort the trip by fastest or cheapest
+ * @returns {Promise<{error: boolean, tripData?: Trip[]}>} - Returns an object with error status and trip data
+ */
+async function exploreTripProcessor (origin: string, destination: string, sort_by: "fastest" | "cheapest") {
+    // Call API for data about the trip.
+    let tripData;
+    const returnObject: {
+        error: boolean,
+        tripData?: Trip[];
+    } = {
+        error: false
+    }
+    const cacheKey = `${origin}-${destination}`;
+    const cachedData = cache.cache.get(cacheKey);
+
+    if (cachedData) {
+        console.log("Data is cached");
+        tripData = cachedData as Trip[];
+    }else{
+        console.log("Data is not cached, making call to fetch it");
+        try {
+        tripData = await fetchTrip(origin, destination);
+        // If the data is not cached, cache it for 1 minute.
+        cache.set(cacheKey, tripData, 60000);
+        } catch (error) {
+            console.error(error);
+            returnObject.error = true;
+            return returnObject;
+        }
+    }
+
+    if (sort_by === "fastest") {
+      tripData.sort((a, b) => { return a.duration - b.duration });
+    }
+
+    if (sort_by === "cheapest") {
+      tripData.sort((a, b) => {return a.cost - b.cost});
+    }
+
+    returnObject.tripData = tripData;
+    
+    return returnObject;
+}
