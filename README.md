@@ -45,11 +45,11 @@ Trip listing:
 
 or
 
-> http://localhost:3000/api/trips/list?ids=${tripIds separated by commas}
+> http://localhost:3000/api/trips/list?ids=${trip IDs separated by commas}
 
 Trip deletion:
 
-> http://localhost:3000/api/trips/${tripId}
+> http://localhost:3000/api/trips/${trip ID}
 
 # Documentation
 
@@ -77,11 +77,11 @@ For enhanced performance a cache has been implemented. This cache stores recent 
 
 ### Cache
 
-To optimize performance, we've implemented a small cache for the explore trips endpoint. This cache stores recent search results using the origin and destination as keys. When a user makes a request with the same origin and destination, the app quickly returns the cached results instead of performing a new search.
+To optimize performance, I've implemented a small cache for the explore trips endpoint. This cache stores recent search results using the origin and destination as keys. When a user makes a request with the same origin and destination, the app quickly returns the cached results instead of performing a new search.
 
 To ensure data freshness, each cached entry has a time-to-live (TTL) of one minute. After this time, the entry is automatically removed, and subsequent requests for the same origin and destination will trigger a new search.
 
-The benefits of caching are evident in performance benchmarks. For instance, when making two consecutive calls to the endpoint with the same parameters (e.g., http://localhost:3000/api/trips/exploreTrips?origin=MAD&destination=JFK&sort_by=cheapest), the first call might take around 6 seconds. However, the second call will be significantly faster, typically completing in under 500 milliseconds.
+The benefits of caching are evident in performance benchmarks. For instance, when making two consecutive calls to the endpoint with the same parameters (e.g., http://localhost:3000/api/trips/exploreTrips?origin=MAD&destination=JFK&sort_by=cheapest), the first call might take around 600 milliseconds. However, the second call will be significantly faster, typically completing in under 50 milliseconds.
 
 ## Tests cases coverage
 
