@@ -80,3 +80,25 @@ Swagger is used in this project to create the documenation for the endpoints exp
 A small cache has been developed for the `explore trips` endpoint. It stores the results of previous queries using the origin and destination as keys. If a call is performed to the endpoint with the same origin and destination the app returns the match found in the database. A ttl of one minute is added to every entry so they get deleted after that time and they have to be refetched again in the next call for that combination of origin and destination.
 
 ## Tests cases coverage
+
+- explore trips:
+
+  - JSON response contains the correct properties if a correct call is make
+  - Sort by cheapest orders the trips correctly
+  - Sort by fastest orders the trips correctly
+  - If parameters are missing an error is return from the server
+  - Correct parameters are passed but they are not allowed (for example an IATA code that is not in the list specified in the Bizaway tech challenge readme)
+
+- Create trip:
+
+  - If correct parameters are passed the trip is created correctly
+  - If some parameters are missing and error is return
+
+- Delete trip:
+
+  - Trips is deleted correctly
+  - If no trip id is introduced in the path it server returns an error.
+
+- List trips:
+  - If no tripIds are passsed in parameters it returns all trips found in the database
+  - If tripIds are passed it returns only those trips
