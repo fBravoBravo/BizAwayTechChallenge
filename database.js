@@ -13,8 +13,65 @@ export function initializeDbConnection() {
 
 async function insertTestTripInDB() {
   const db = initializeDbConnection();
+
+  const locations = [
+    'AMS',
+    'FRA',
+    'IST',
+    'CAN',
+    'SIN',
+    'DEN',
+    'ICN',
+    'BKK',
+    'SFO',
+    'LAS',
+    'CLT',
+    'MIA',
+    'KUL',
+    'SEA',
+    'MUC',
+    'EWR',
+    'HKG',
+    'MCO',
+    'PHX',
+    'IAH',
+    'SYD',
+    'MEL',
+    'GRU',
+    'YYZ',
+    'LGW',
+    'BCN',
+    'MAN',
+    'BOM',
+    'DEL',
+    'ZRH',
+    'SVO',
+    'DME',
+    'JNB',
+    'ARN',
+    'OSL',
+    'CPH',
+    'HEL',
+    'VIE',
+  ];
+
+  for (const location of locations) {
+    await new Promise((resolve, reject) => {
+      db.run('INSERT INTO locations (IATAcode) VALUES (?)', [location], (err) => {
+        if (err) {
+          reject(err);
+        }
+        resolve(true);
+      });
+    });
+  }
+  db.close();
+}
+
+async function deleteFromDb() {
+  const db = initializeDbConnection();
   await new Promise((resolve, reject) => {
-    db.run('INSERT INTO locations (IATAcode) VALUES (?)', ['JFK'], (err) => {
+    db.run('DROP TABLE users', (err) => {
       if (err) {
         reject(err);
       }
@@ -24,4 +81,4 @@ async function insertTestTripInDB() {
   db.close();
 }
 
-insertTestTripInDB();
+deleteFromDb();
