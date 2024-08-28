@@ -1,6 +1,6 @@
-# BizAway tech challenge
+# BizAway Tech Challenge
 
-BizAway interview tech challenge solution proposal.
+Tech Challenge Solution Proposal
 
 ## Author
 
@@ -14,8 +14,8 @@ BizAway interview tech challenge solution proposal.
 
 - Make sure to use the specified node version (20 LTS).
 - Add the API key (BizAway's endpoint API key) to the env file as specified in `.example.env`.
-- clone the project.
-- Run npm install in the root of the project.
+- Clone the project.
+- Run `npm install` in the root of the project.
 - Run `sudo npm run start`
 
 These steps will spin up the server and it will be ready to start receiving requests.
@@ -27,9 +27,9 @@ These steps will spin up the server and it will be ready to start receiving requ
 
 ## Making calls to the API
 
-The is deployed in localhost using the port `3000`. To make calls to the api first add the `api` subdirectory to the query and then add the resource you want to access ( for this test there are only one resource `trips`).
+The server is deployed in localhost on port `3000`. To make calls to the API first add the `api` subdirectory to the query and then add the resource you want to access (for this test there is only one resource `trips`).
 
-Examples:
+Examples
 
 Trip creation:
 
@@ -37,15 +37,15 @@ Trip creation:
 
 Trip exploration:
 
-> http://localhost:3000/api/trips/exploreTrips
+> http://localhost:3000/api/trips/explore
 
-List Trips:
+Trip listing:
 
-> http://localhost:3000/api/trips/listTrips
+> http://localhost:3000/api/trips/list
 
 or
 
-> http://localhost:3000/api/trips/listTrips?tripIds=${tripIds separated by commas}
+> http://localhost:3000/api/trips/list?ids=${tripIds separated by commas}
 
 Trip deletion:
 
@@ -55,25 +55,23 @@ Trip deletion:
 
 Swagger is used in this project to create the documentation for the endpoints exposed. You can find it spinning up the server and going to [localhost:3000/docs](localhost:3000/docs).
 
-==Find more documentation about the project below==
-
 # Description of the project
 
 ## Endpoints
 
 ### Main functionality of the challenge
 
-- **Explore Trips**: This endpoint covers the main part of the challenge and is designed to retrieve and sort travel itineraries based on specified criteria. Users can provide an origin, a destination, and a sorting method. The endpoint will then return all matching trips, sorted according to the chosen sorting strategy.
+- **Explore Trips**: This endpoint covers the main part of the challenge and is designed to retrieve and sort travel itineraries based on specified criteria. Users can provide an origin, a destination and a sorting method. The endpoint will then return all matching trips, sorted according to the chosen sorting strategy.
 
-For enhanced performance, we've implemented a caching mechanism. This cache stores recent search results, allowing for faster response times for repeated queries with the same parameters. Please refer to the 'Extra functionality' section for more details on the caching implementation.
+For enhanced performance a cache has been implemented. This cache stores recent search results allowing for faster response times for repeated queries with the same parameters. Please refer to the 'Extra functionality' section for more details on the cache implementation.
 
 ### Bonus
 
 - **Create trip (POST)**: Given all the properties as a JSON in the body (origin, destination, duration, cost, display_name and type) it will create a new trip and insert it in the database.
 
-- **Delete trip (DELETE)**: Using the id of the trip used in the path it erased the trip from the database.
+- **Delete trip (DELETE)**: Using the ID of the trip used in the path it erases the trip from the database.
 
-- **List trips (GET)**: If no tripids are passed as parameters it returns all trips found in the database if else then it returns only the ones matching the ids passed.
+- **List trips (GET)**: If no trip IDs are passed as parameters it returns all trips found in the database. If else it returns only the ones matching the IDs passed.
 
 ## Extra functionality
 
@@ -87,24 +85,24 @@ The benefits of caching are evident in performance benchmarks. For instance, whe
 
 ## Tests cases coverage
 
-- explore trips:
+- Explore trips:
 
-  - JSON response contains the correct properties if a correct call is made
-  - Sort by cheapest orders the trips correctly
-  - Sort by fastest orders the trips correctly
+  - JSON response contains the correct properties
+  - Sort by cheapest orders the trips accordingly
+  - Sort by fastest orders the trips accordingly
   - If parameters are missing an error is returned from the server
-  - Correct parameters are passed but they are not allowed (for example an IATA code that is not in the list specified in the Bizaway tech challenge readme)
+  - Correct parameters are passed but they are not allowed (e.g. IATA code not in the list specified in the Bizaway Tech Challenge readme)
 
 - Create trip:
 
-  - If correct parameters are passed the trip is created correctly
+  - If correct parameters are passed the trip is created successfully
   - If some parameters are missing an error is returned
 
 - Delete trip:
 
-  - Trips are deleted correctly
-  - If no trip id is introduced in the path it server returns an error.
+  - Trips are deleted successfully
+  - If no trip ID is introduced in the path the server returns an error
 
 - List trips:
-  - If no tripIds are passed in parameters it returns all trips found in the database
-  - If tripIds are passed it returns only those trips
+  - If no trip IDs are passed as parameters it returns all trips found in the database
+  - If trip IDs are passed it returns only those trips

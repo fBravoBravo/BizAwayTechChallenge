@@ -30,7 +30,7 @@ describe("exploreTrips end-point", () => {
         method: 'GET',
       }
       // Sending request with no parameters
-      const result = await fetch(`http://localhost:3000/tripExplorer`, options);
+      const result = await fetch(`http://localhost:3000/api/trips/explore`, options);
       const data = await result.json();
 
       expect(data).toHaveProperty(['error']);

@@ -1,12 +1,12 @@
 import fastify from 'fastify';
-import { exploreTripsHandler } from '../handlers/exploreTrips.js';
+import { exploreTripsHandler } from '../handlers/exploreTripsHandler.js';
 import { listTripsHandler } from '../handlers/listTripsHandler.js';
 import { deleteTripHandler } from '../handlers/deleteTripHandler.js';
 import { createTripHandler } from '../handlers/createTripHandler.js';
 
 export async function tripRoutes(fastify: fastify.FastifyInstance) {
   fastify.get(
-    '/exploreTrips',
+    '/explore',
     {
       schema: {
         params: {
@@ -66,7 +66,7 @@ export async function tripRoutes(fastify: fastify.FastifyInstance) {
     exploreTripsHandler,
   );
   fastify.get(
-    '/listTrips',
+    '/list',
     {
       schema: {
         params: {

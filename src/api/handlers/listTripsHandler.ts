@@ -12,13 +12,12 @@ export  async function listTripsHandler(request: fastify.FastifyRequest, reply: 
   try{
     const timeStart = performance.now();
     const db = initializeDbConnection();
-    const { tripIds } = request.query as { tripIds: string };
-    const tripIdsArray = tripIds?.split(',');
+    const { ids } = request.query as { ids: string };
+    const tripIdsArray = ids?.split(',');
 
-    console.log(`tripIds: ${tripIds}`);
 
     // If the query parameter tripIds is present, we will return only the trips with the ids provided.
-    if (tripIds) {
+    if (ids) {
       const tripIdsQuery = tripIdsArray.map(id => `id = '${id}'`).join(' OR ');
       console.log(`tripIdsQuery: ${tripIdsQuery}`);
       const rows = await new Promise((resolve, reject) => {
