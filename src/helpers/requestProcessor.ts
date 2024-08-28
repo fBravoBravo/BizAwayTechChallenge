@@ -22,8 +22,10 @@ export async function processRequest (origin: string, destination: string, sort_
     const cachedData = cache.cache.get(cacheKey);
 
     if (cachedData) {
+        console.log("Data is cached");
         tripData = cachedData as Trip[];
     }else{
+        console.log("Data is not cached, making call to fetch it");
         try {
         tripData = await fetchTrip(origin, destination);
         // If the data is not cached, cache it for 1 minute.

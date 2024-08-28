@@ -79,6 +79,8 @@ Swagger is used in this project to create the documenation for the endpoints exp
 
 A small cache has been developed for the `explore trips` endpoint. It stores the results of previous queries using the origin and destination as keys. If a call is performed to the endpoint with the same origin and destination the app returns the match found in the database. A ttl of one minute is added to every entry so they get deleted after that time and they have to be refetched again in the next call for that combination of origin and destination.
 
+You can realize the benefits of this implementation if you make to calls requesting the same information for example `http://localhost:3000/api/trips/exploreTrips?origin=MAD&destination=JFK&sort_by=cheapest`, the first time it takes almost 6 seconds to return. On the second call it does it in 500 miliseconds.
+
 ## Tests cases coverage
 
 - explore trips:
