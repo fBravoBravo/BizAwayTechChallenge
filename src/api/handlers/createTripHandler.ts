@@ -17,8 +17,17 @@ export async function createTripHandler (request: fastify.FastifyRequest, reply:
     console.log(JSON.stringify(request.body));
 
     if (!origin || !destination || !cost || !duration || !type || !display_name) {
+
+      const missingParams = [];
+      if (!origin) missingParams.push("origin");
+      if (!destination) missingParams.push("destination");
+      if (!cost) missingParams.push("cost");
+      if (!duration) missingParams.push("duration");
+      if (!type) missingParams.push("type");
+      if (!display_name) missingParams.push("display_name");
+
       reply.code(400).send({
-        error: "Please provide all the required parameters."
+        error: `Please provide all the required parameters. Missing parameters: ${missingParams.join(", ")}`
       });
     }
 
