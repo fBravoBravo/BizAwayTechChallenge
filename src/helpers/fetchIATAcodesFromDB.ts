@@ -8,15 +8,17 @@ export async function fetchIATAcodesFromDB() {
   const db = initializeDbConnection();
 
   const rows = await new Promise((resolve, reject) => {
-    db.all('SELECT * FROM locations', [], (err, rows) => {
+    db.all('SELECT IATAcode FROM locations', [], (err, rows) => {
       if (err) {
         reject(err);
       }
-      resolve(rows);
+      resolve(rows as {IATAcode: string}[]);
     });
-  });
+  }) as {IATAcode: string}[];
 
   db.close();
 
-  return rows as string[];
+  const iataCodes = rows.map((row: { IATAcode: string }) => row.IATAcode);
+
+  return iataCodes;
 }

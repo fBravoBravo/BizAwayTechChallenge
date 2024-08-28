@@ -29,6 +29,8 @@ export async function exploreTripsHandler(request: fastify.FastifyRequest, reply
 
     const allowedIATAcodes = await fetchIATAcodesFromDB();
 
+    console.log(JSON.stringify(allowedIATAcodes));
+
     if (!allowedIATAcodes.includes(origin) || !allowedIATAcodes.includes(destination)) {
       reply.code(400).send({
         error: "Please provide valid IATA codes for origin and destination."
