@@ -18,8 +18,13 @@ export async function exploreTripsHandler(request: fastify.FastifyRequest, reply
     console.log(origin, destination, sort_by);
 
     if (!origin || !destination || !sort_by) {
+      let missingParams = [];
+      if (!origin) missingParams.push("origin");
+      if (!destination) missingParams.push("destination");
+      if (!sort_by) missingParams.push("sort_by");
+
       reply.code(400).send({
-        error: "Please provide all the required parameters."
+        error: `Please provide all the required parameters. Missing parameters: ${missingParams.join(", ")}`
       });
     }
 
