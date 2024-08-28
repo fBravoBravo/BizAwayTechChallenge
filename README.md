@@ -12,7 +12,7 @@ BizAway interview tech challenge solution proposal.
 
 ## Spinning up the server
 
-- Make sure to use the specified node version (20.0.0 LTS).
+- Make sure to use the specified node version (20 LTS).
 - Add the API key (BizAway's endpoint API key) to the env file as specified in `.example.env`.
 - clone the project.
 - Run npm install in the root of the project.
