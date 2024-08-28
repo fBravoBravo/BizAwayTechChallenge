@@ -14,8 +14,6 @@ export async function createTripHandler (request: fastify.FastifyRequest, reply:
 
     const timeStart = performance.now();
 
-    console.log(JSON.stringify(request.body));
-
     if (!origin || !destination || !cost || !duration || !type || !display_name) {
 
       const missingParams = [];

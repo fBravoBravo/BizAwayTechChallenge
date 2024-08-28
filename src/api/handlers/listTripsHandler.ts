@@ -19,14 +19,12 @@ export  async function listTripsHandler(request: fastify.FastifyRequest, reply: 
     // If the query parameter tripIds is present, we will return only the trips with the ids provided.
     if (ids) {
       const tripIdsQuery = tripIdsArray.map(id => `id = '${id}'`).join(' OR ');
-      console.log(`tripIdsQuery: ${tripIdsQuery}`);
       const rows = await new Promise((resolve, reject) => {
 
         db.all(`SELECT * FROM trip WHERE ${tripIdsQuery}`, [], (err, rows) => {
           if (err) {
             reject(err);
           }
-          console.log(`Rows: ${rows.length}`);
           resolve(rows as Trip[]);
         });
       }) as Trip[];
@@ -49,7 +47,6 @@ export  async function listTripsHandler(request: fastify.FastifyRequest, reply: 
       if (err) {
         reject(err);
       }
-      console.log(`Rows: ${rows.length}`);
       resolve(rows as Trip[]);
     });
     }) as Trip[];

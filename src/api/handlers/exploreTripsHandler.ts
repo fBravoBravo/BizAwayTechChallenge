@@ -15,8 +15,6 @@ export async function exploreTripsHandler(request: fastify.FastifyRequest, reply
 
     const {origin, destination, sort_by} = request.query as { origin: string, destination: string, sort_by: "fastest" | "cheapest" };
 
-    console.log(origin, destination, sort_by);
-
     if (!origin || !destination || !sort_by) {
       let missingParams = [];
       if (!origin) missingParams.push("origin");
@@ -35,8 +33,6 @@ export async function exploreTripsHandler(request: fastify.FastifyRequest, reply
     }
 
     const allowedIATAcodes = await fetchIATAcodesFromDB();
-
-    console.log(JSON.stringify(allowedIATAcodes));
 
     if (!allowedIATAcodes.includes(origin) || !allowedIATAcodes.includes(destination)) {
       reply.code(400).send({
