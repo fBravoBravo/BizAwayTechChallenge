@@ -13,8 +13,8 @@ const apiKey = process.env.API_KEY;
     headers: {
         'x-api-key': apiKey,
         'Content-Type': 'application/json',
-    },
-    }
+    } as Record<string, string>,
+    };
   const response = await fetch(`https://z0qw1e7jpd.execute-api.eu-west-1.amazonaws.com/default/trips?origin=${origin}&destination=${destination}`, options);
   const trip = await response.json() as Trip[];
   return trip;
