@@ -3,7 +3,7 @@ import { test, expect } from 'vitest';
 import { listTripsAPICall } from './utils/APIcalls.js';
 import { deleteFromDB, getTripsFromDB, insertTestTripInDB } from './utils/databaseCalls.js';
 
-describe.sequential("listTrips end-point", () => {
+describe("listTrips end-point", () => {
     test('Request with no parameters returns all trips', async () => {
       const data = await listTripsAPICall();
       const { trips } = data;

@@ -3,7 +3,7 @@ import { test, expect } from 'vitest';
 import { deleteTripsAPICall } from './utils/APIcalls.js';
 import { insertTestTripInDB } from './utils/databaseCalls.js';
 
-describe.sequential("deleteTrip end-point", () => {
+describe("deleteTrip end-point", () => {
     test('Trip is deleted', async () => {
       const tripId = await insertTestTripInDB();
       const data = await deleteTripsAPICall(tripId);
