@@ -2,7 +2,7 @@ import { describe } from 'vitest';
 import { test, expect } from 'vitest';
 import { exploreTripsAPICall } from './utils/APIcalls.js';
 
-describe("exploreTrips end-point", () => {
+describe.sequential("exploreTrips end-point", () => {
     test('Response contains correct properties', async () => {
       const data = await exploreTripsAPICall('MAD', 'JFK', 'fastest');
       console.log(data);

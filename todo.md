@@ -6,6 +6,4 @@
 
 //TODO Try to improve tests with .sequential
 
-//TODO Add env variables for api key.
-
 //TODO maybe docker
