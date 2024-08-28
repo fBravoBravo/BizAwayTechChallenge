@@ -63,11 +63,11 @@ Swagger is used in this project to create the documentation for the endpoints ex
 
 - **Explore Trips**: This endpoint covers the main part of the challenge and is designed to retrieve and sort travel itineraries based on specified criteria. Users can provide an origin, a destination and a sorting method. The endpoint will then return all matching trips, sorted according to the chosen sorting strategy.
 
-For enhanced performance a cache has been implemented. This cache stores recent search results allowing for faster response times for repeated queries with the same parameters. Please refer to the 'Extra functionality' section for more details on the cache implementation.
+Additionally, a cache has been implemented for enhancing performance. This cache stores recent search results allowing for faster response times for repeated queries with the same parameters. Please refer to the 'Extra functionality' section for more details on the cache implementation.
 
 ### Bonus
 
-- **Create trip (POST)**: Given all the properties as a JSON in the body (origin, destination, duration, cost, display_name and type) it will create a new trip and insert it in the database.
+- **Create trip (POST)**: Provided all the properties are given as a JSON in the body (origin, destination, duration, cost, display_name and type) it will create a new trip and insert it in the database.
 
 - **Delete trip (DELETE)**: Using the ID of the trip used in the path it erases the trip from the database.
 
@@ -77,11 +77,11 @@ For enhanced performance a cache has been implemented. This cache stores recent 
 
 ### Cache
 
-To optimize performance, I've implemented a small cache for the explore trips endpoint. This cache stores recent search results using the origin and destination as keys. When a user makes a request with the same origin and destination, the app quickly returns the cached results instead of performing a new search.
+For optimizing performance a small cache has been implemented for the explore trips endpoint. This cache stores recent search results using the origin and destination as keys. Whenever a user makes a request with the same origin and destination, the app quickly returns the cached results instead of performing a new search.
 
-To ensure data freshness, each cached entry has a time-to-live (TTL) of one minute. After this time, the entry is automatically removed, and subsequent requests for the same origin and destination will trigger a new search.
+To ensure data freshness, each cached entry has a time-to-live (TTL) of one minute. After this time, the entry is automatically removed and subsequent requests for the same origin and destination will trigger a new search.
 
-The benefits of caching are evident in performance benchmarks. For instance, when making two consecutive calls to the endpoint with the same parameters (e.g., http://localhost:3000/api/trips/exploreTrips?origin=MAD&destination=JFK&sort_by=cheapest), the first call might take around 600 milliseconds. However, the second call will be significantly faster, typically completing in under 50 milliseconds.
+The benefits of caching are evident in performance benchmarks. For instance, when making two consecutive calls to the endpoint with the same parameters (e.g. http://localhost:3000/api/trips/exploreTrips?origin=MAD&destination=JFK&sort_by=cheapest), the first call might take around 600 milliseconds. However, the second call will be significantly faster, typically completing in under 50 milliseconds.
 
 ## Tests cases coverage
 
