@@ -2,6 +2,7 @@ import Fastify, { FastifyRegisterOptions } from 'fastify'
 import { routes } from './api/routes/routes.js';
 import fastifySwagger, { SwaggerOptions } from "@fastify/swagger";
 import fastifySwaggerUi from "@fastify/swagger-ui";
+import 'dotenv/config'
 
 const server = Fastify({
   logger: true

@@ -7,10 +7,11 @@ import { Trip } from "../types.js";
  * @returns {Promise<Trip[]>} - List of trips
  */
 export async function fetchTrip (origin: string, destination: string): Promise<Trip[]> {
+const apiKey = process.env.API_KEY;
  const options = {
     method: 'GET',
     headers: {
-        'x-api-key': 'API_KEY',
+        'x-api-key': apiKey,
         'Content-Type': 'application/json',
     },
     }
