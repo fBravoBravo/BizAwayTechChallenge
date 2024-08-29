@@ -20,6 +20,8 @@ Tech Challenge Solution Proposal
 
 These steps will spin up the server and it will be ready to start receiving requests.
 
+> If you find any problem trying to spin up the server, try running with sudo permissions
+
 ## Running the tests
 
 - Spin up the server using the steps described above.
