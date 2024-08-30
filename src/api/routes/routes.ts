@@ -16,6 +16,7 @@ export async function routes (fastify: fastify.FastifyInstance) {
    *        description: Bad request
    */
   fastify.register(tripRoutes, { prefix: '/trips' }); 
+  fastify.register(tripRoutes, { prefix: '/authentication' });
 }
 
 
