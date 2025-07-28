@@ -89,7 +89,7 @@ The benefits of caching are evident in performance benchmarks. For instance, whe
   - Sort by cheapest orders the trips accordingly
   - Sort by fastest orders the trips accordingly
   - If parameters are missing an error is returned from the server
-  - Correct parameters are passed but they are not allowed (e.g. IATA code not in the list specified in the Bizaway Tech Challenge readme)
+  - Correct parameters are passed but they are not allowed
 
 - Create trip:
 
